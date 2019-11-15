@@ -8,4 +8,5 @@
   <string name="wrong_login_credential_message">Please Enter Correct Username and Password</string>
   <string name="login_required_message">Username and Password are required</string>
   <string name="empty_video_path_message">Provided file not exist</string>
+  <string name="fill_login_credential">Please fill login credentials</string>
 </resources>
