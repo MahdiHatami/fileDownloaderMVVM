@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/fileFragment">
 
   <fragment
       android:id="@+id/loginFragment"
@@ -17,7 +17,7 @@
   </fragment>
   <fragment
       android:id="@+id/fileFragment"
-      android:name="com.metis.downloader.file.FileFragment"
+      android:name="com.metis.downloader.file.FilesFragment"
       android:label="Files"
       tools:layout="@layout/file_fragment">
 
@@ -30,6 +30,10 @@
       android:name="com.metis.downloader.player.PlayerFragment"
       android:label="Player"
       tools:layout="@layout/player_fragment">
+    <argument
+        android:name="fileId"
+        app:argType="string"
+        app:nullable="false" />
 
   </fragment>
 

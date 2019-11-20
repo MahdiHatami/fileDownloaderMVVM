@@ -1,13 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".file.FileFragment">
-
-    <TextView
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+  <data>
+    <import type="android.view.View" />
+    <import type="androidx.core.content.ContextCompat" />
+    <variable
+        name="viewModel"
+        type="com.metis.downloader.file.FilesViewModel"
+        />
+  </data>
+  <RelativeLayout
+      android:id="@+id/tasksContainer"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:clickable="true"
+      android:focusable="true"
+      android:orientation="vertical"
+      >
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/files_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        app:items="@{viewModel.items}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/noTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:visibility="@{viewModel.empty ? View.VISIBLE : View.GONE}"
+        >
+
+      <ImageView
+          android:id="@+id/noTasksIcon"
+          android:layout_width="96dp"
+          android:layout_height="96dp"
+          android:layout_gravity="center"
+          />
+
+      <TextView
+          android:id="@+id/noTasksMain"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginBottom="@dimen/list_item_padding"
+          />
+    </LinearLayout>
+  </RelativeLayout>
+</layout>
