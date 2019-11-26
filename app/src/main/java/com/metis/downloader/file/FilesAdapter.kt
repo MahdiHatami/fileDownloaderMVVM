@@ -25,7 +25,7 @@ class FilesAdapter(private val viewModel: FilesViewModel) :
     return ViewHolder.from(parent)
   }
 
-  class ViewHolder private constructor(val binding: FileItemBinding) :
+  class ViewHolder private constructor(private val binding: FileItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(viewModel: FilesViewModel, item: CustomFile) {
