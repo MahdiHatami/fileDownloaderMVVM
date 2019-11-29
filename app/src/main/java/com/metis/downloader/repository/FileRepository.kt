@@ -22,9 +22,7 @@ class FileRepository(private val fileDao: CustomFileDao) {
     }
   }
 
-  suspend fun deleteAllFiles() {
-    withContext(ioDispatcher) {
-      fileDao.deleteAllFiles()
-    }
+  suspend fun getFileById(fileId: Int) = withContext(ioDispatcher) {
+    fileDao.getFileById(fileId)
   }
 }

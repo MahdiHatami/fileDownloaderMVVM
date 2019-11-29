@@ -1,6 +1,5 @@
 package com.metis.downloader.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -15,9 +14,9 @@ interface CustomFileDao {
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   suspend fun insert(file: CustomFile)
 
+  @Query("SELECT * from file_table WHERE id=:fileId")
+  suspend fun getFileById(fileId: Int)
+
   @Query("DELETE from file_table WHERE id=:fileId")
   suspend fun deleteFileById(fileId: Int)
-
-  @Query("DELETE from file_table")
-  suspend fun deleteAllFiles()
 }
