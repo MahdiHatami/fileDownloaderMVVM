@@ -13,7 +13,11 @@
 
     <action
         android:id="@+id/action_loginFragment_to_fileFragment"
-        app:destination="@id/fileFragment" />
+        app:destination="@id/fileFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
   </fragment>
   <fragment
       android:id="@+id/fileFragment"
@@ -23,7 +27,11 @@
 
     <action
         android:id="@+id/action_fileFragment_to_playerFragment"
-        app:destination="@id/playerFragment" />
+        app:destination="@id/playerFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
   </fragment>
   <fragment
       android:id="@+id/playerFragment"

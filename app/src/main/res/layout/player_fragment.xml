@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".player.PlayerFragment">
+    >
+  <data>
+    <variable
+        name="viewModel"
+        type="com.metis.downloader.player.PlayerViewModel"
+        />
+  </data>
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context=".player.PlayerFragment"
+      >
 
-    <TextView
+    <VideoView
+        android:id="@+id/videoView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_gravity="center"
+        />
 
-</FrameLayout>
+  </FrameLayout>
+
+</layout>

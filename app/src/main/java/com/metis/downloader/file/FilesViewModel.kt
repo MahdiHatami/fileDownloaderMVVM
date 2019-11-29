@@ -11,6 +11,7 @@ import com.metis.downloader.data.CustomFile
 import com.metis.downloader.data.FileRoomDatabase
 import com.metis.downloader.repository.FileRepository
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class FilesViewModel(application: Application) : AndroidViewModel(application) {
   private val repository: FileRepository
@@ -26,6 +27,7 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
   }
 
   init {
+    Timber.d("init files view model")
     val fileDao = FileRoomDatabase.getDatabase(application).fileDao()
     repository = FileRepository(fileDao)
     loadFiles()
