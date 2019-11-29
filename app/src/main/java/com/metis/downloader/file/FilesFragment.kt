@@ -56,6 +56,7 @@ class FilesFragment : Fragment() {
       val action = FilesFragmentDirections.actionFileFragmentToPlayerFragment(it)
       findNavController().navigate(action)
     })
+
   }
 
   private fun setupListAdapter() {

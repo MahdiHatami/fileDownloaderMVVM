@@ -18,11 +18,11 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
   private val _items = MutableLiveData<List<CustomFile>>().apply { value = emptyList() }
   val items: LiveData<List<CustomFile>> = _items
 
-  private val _openFileEvent = MutableLiveData<Event<String>>()
-  val openFileEvent: LiveData<Event<String>> = _openFileEvent
+  private val _openFileEvent = MutableLiveData<Event<Int>>()
+  val openFileEvent: LiveData<Event<Int>> = _openFileEvent
 
   val empty: LiveData<Boolean> = Transformations.map(_items) {
-    it.isEmpty()
+    it?.isEmpty() ?: false
   }
 
   init {
@@ -33,20 +33,21 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
 
   private fun loadFiles() {
     viewModelScope.launch {
-      repository.deleteAllFiles()
-      _items.value = repository.allFiles()
+      val files = repository.allFiles()
+      _items.value = files
     }
   }
 
   /**
    * Called by Data Binding.
    */
-  fun openFile(fileId: String) {
+  fun openFile(fileId: Int) {
     _openFileEvent.value = Event(fileId)
   }
 
   fun addNewFile() = viewModelScope.launch {
     repository.insert(generateRandomFile())
+    loadFiles()
   }
 
   private fun generateRandomFile(): CustomFile {

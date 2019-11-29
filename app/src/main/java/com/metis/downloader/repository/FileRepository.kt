@@ -5,13 +5,10 @@ import com.metis.downloader.data.CustomFileDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
-
 
 class FileRepository(private val fileDao: CustomFileDao) {
 
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-
 
   suspend fun allFiles(): List<CustomFile> {
     return withContext(ioDispatcher) {
@@ -22,7 +19,6 @@ class FileRepository(private val fileDao: CustomFileDao) {
   suspend fun insert(file: CustomFile) {
     withContext(ioDispatcher) {
       fileDao.insert(file)
-      Timber.d("" + fileDao.getFiles().size)
     }
   }
 

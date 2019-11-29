@@ -32,7 +32,7 @@
       tools:layout="@layout/player_fragment">
     <argument
         android:name="fileId"
-        app:argType="string"
+        app:argType="integer"
         app:nullable="false" />
 
   </fragment>
