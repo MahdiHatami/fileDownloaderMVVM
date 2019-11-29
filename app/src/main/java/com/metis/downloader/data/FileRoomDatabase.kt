@@ -24,10 +24,9 @@ public abstract class FileRoomDatabase : RoomDatabase() {
         return tempInstance
       }
       synchronized(this) {
-        val instance = Room.databaseBuilder(
+        val instance = Room.inMemoryDatabaseBuilder(
           context.applicationContext,
-          FileRoomDatabase::class.java,
-          "test_database"
+          FileRoomDatabase::class.java
         ).build()
         INSTANCE = instance
         return instance
