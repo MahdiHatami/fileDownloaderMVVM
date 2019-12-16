@@ -5,6 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.metis.downloader.Event
 import com.metis.downloader.data.CustomFile
@@ -14,6 +16,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class FilesViewModel(application: Application) : AndroidViewModel(application) {
+
   private val repository: FileRepository
 
   private val _items = MutableLiveData<List<CustomFile>>().apply { value = emptyList() }
@@ -34,9 +37,8 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
   }
 
   private fun loadFiles() {
-    viewModelScope.launch {
-      val files = repository.allFiles()
-      _items.value = files
+    liveData {
+      emit(repository.allFiles().asLiveData())
     }
   }
 
@@ -49,7 +51,6 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
 
   fun addNewFile() = viewModelScope.launch {
     repository.insert(generateRandomFile())
-    loadFiles()
   }
 
   private fun generateRandomFile(): CustomFile {
