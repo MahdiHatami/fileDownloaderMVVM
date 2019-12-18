@@ -7,10 +7,10 @@ import androidx.room.RoomDatabase
 
 
 // Annotates class to be a Room Database with a table (entity) of the CustomFile class
-@Database(entities = [CustomFile::class], version = 1, exportSchema = false)
+@Database(entities = [VideoFile::class], version = 1, exportSchema = false)
 public abstract class FileRoomDatabase : RoomDatabase() {
 
-  abstract fun fileDao(): CustomFileDao
+  abstract fun fileDao(): VideoFileDao
 
   companion object {
     // Singleton prevents multiple instances of database opening at the

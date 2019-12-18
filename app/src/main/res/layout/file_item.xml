@@ -8,7 +8,7 @@
 
     <variable
         name="file"
-        type="com.metis.downloader.data.CustomFile"
+        type="com.metis.downloader.data.VideoFile"
         />
     <variable
         name="viewModel"
@@ -19,7 +19,7 @@
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="?android:attr/listPreferredItemHeight"
-      android:onClick="@{() -> viewModel.openFile(file.id)}"
+      android:onClick="@{() -> viewModel.openFile(file.videoId)}"
       android:orientation="horizontal"
       android:paddingLeft="@dimen/activity_horizontal_margin"
       android:paddingTop="@dimen/list_item_padding"
@@ -40,7 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:text="@{file.id + file.title}"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         />
   </LinearLayout>

@@ -4,13 +4,13 @@ import android.graphics.Paint
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.metis.downloader.data.CustomFile
+import com.metis.downloader.data.VideoFile
 
 /**
- * [BindingAdapter]s for the [CustomFile]s list.
+ * [BindingAdapter]s for the [VideoFile]s list.
  */
 @BindingAdapter("app:items")
-fun setItems(listView: RecyclerView, items: List<CustomFile>) {
+fun setItems(listView: RecyclerView, items: List<VideoFile>) {
   (listView.adapter as FilesAdapter).submitList(items)
 }
 
