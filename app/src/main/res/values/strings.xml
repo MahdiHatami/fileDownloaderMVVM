@@ -10,4 +10,5 @@
   <string name="empty_video_path_message">Provided file not exist</string>
   <string name="fill_login_credential">Please fill login credentials</string>
   <string name="add_file">Add File</string>
+  <string name="empty_state_message">No results found, please try again.</string>
 </resources>

@@ -9,19 +9,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.metis.downloader.EventObserver
 import com.metis.downloader.R
 import com.metis.downloader.databinding.FileFragmentBinding
+import dagger.android.support.DaggerFragment
 import timber.log.Timber
+import javax.inject.Inject
 
-class FilesFragment : Fragment() {
+class FilesFragment : DaggerFragment() {
+
+  @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
   private lateinit var binding: FileFragmentBinding
-  private val viewModel by lazy { ViewModelProvider(this).get(FilesViewModel::class.java) }
-
+  private val viewModel by viewModels<FilesViewModel> { viewModelFactory }
   private lateinit var listAdapter: FilesAdapter
 
   override fun onCreateView(
@@ -58,7 +62,7 @@ class FilesFragment : Fragment() {
       findNavController().navigate(action)
     })
 
-    viewModel.items.observe(viewLifecycleOwner) {videos ->
+    viewModel.items.observe(viewLifecycleOwner) { videos ->
       listAdapter.submitList(videos)
     }
 

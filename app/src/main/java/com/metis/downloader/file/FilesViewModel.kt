@@ -1,22 +1,21 @@
 package com.metis.downloader.file
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.metis.downloader.Event
-import com.metis.downloader.data.FileRoomDatabase
 import com.metis.downloader.data.VideoFile
 import com.metis.downloader.repository.FileRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.UUID
+import javax.inject.Inject
 
-class FilesViewModel(application: Application) : AndroidViewModel(application) {
-
+class FilesViewModel @Inject constructor(
   private val repository: FileRepository
+) : ViewModel() {
 
   private val _items = MutableLiveData<List<VideoFile>>().apply { value = emptyList() }
   val items: LiveData<List<VideoFile>> = _items
@@ -30,8 +29,6 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
 
   init {
     Timber.d("init files view model")
-    val fileDao = FileRoomDatabase.getDatabase(application).fileDao()
-    repository = FileRepository(fileDao)
     loadFiles()
   }
 
