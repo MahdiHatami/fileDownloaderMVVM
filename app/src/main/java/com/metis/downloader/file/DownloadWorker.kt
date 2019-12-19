@@ -7,6 +7,7 @@ import androidx.work.ListenableWorker.Result
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.metis.downloader.file.Const.DOWNLOAD_DIR
+import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
@@ -25,6 +26,7 @@ class DownloadWorker(context: Context, workerParams: WorkerParameters) :
   private val liveDataHelper: LiveDataHelper = LiveDataHelper()
   private var outputData: Data? = null
   override fun doWork(): Result {
+    Timber.d("doWork")
     try {
       val videoUrl = inputData.getString(Const.INPUT_URL)
       val id = inputData.getString(Const.INPUT_ID)

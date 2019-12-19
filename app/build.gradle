@@ -58,6 +58,9 @@ android {
   androidExtensions {
     experimental = true
   }
+  dexOptions {
+    javaMaxHeapSize "4g"
+  }
 }
 
 dependencies {

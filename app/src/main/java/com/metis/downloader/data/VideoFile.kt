@@ -8,6 +8,10 @@ import androidx.room.PrimaryKey
 data class VideoFile(
   @PrimaryKey
   var videoId: String,
-  var videoTitle: String
+  var videoTitle: String,
+  var videoUrl: String = "",
+  var videoThumb: String = "",
+  var percentage: Int = 0,
+  var isDownloaded: Boolean = false
 )
 
