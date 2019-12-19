@@ -2,6 +2,7 @@ package com.metis.downloader.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
 
 @Entity(tableName = "video_files")

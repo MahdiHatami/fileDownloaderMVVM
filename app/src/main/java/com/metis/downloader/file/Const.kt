@@ -1,5 +1,9 @@
 package com.metis.downloader.file
 
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+
 object Const {
   private const val MAX_NUM = 4
   private const val MIN_NUM = 0
@@ -31,5 +35,13 @@ object Const {
 
   fun getRandomBetweenRange(): Int {
     return (Math.random() * (MAX_NUM - MIN_NUM + 1) + 0).toInt()
+  }
+
+  fun extractName(videoUrl: String): String {
+    val pattern: Pattern = Pattern.compile("([^\\/]+)(?=\\.\\w+$)")
+    val matcher: Matcher = pattern.matcher(videoUrl)
+    return if (matcher.find()) {
+      matcher.group(1)
+    } else ""
   }
 }

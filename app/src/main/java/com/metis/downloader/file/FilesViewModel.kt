@@ -16,6 +16,8 @@ import androidx.work.WorkManager
 import com.metis.downloader.Event
 import com.metis.downloader.data.VideoFile
 import com.metis.downloader.repository.FileRepository
+import com.metis.downloader.util.permission.PermissionStatus
+import com.metis.downloader.util.permission.PermissionStatus.CAN_ASK_PERMISSION
 import kotlinx.coroutines.launch
 import org.jetbrains.annotations.NotNull
 import timber.log.Timber
@@ -29,6 +31,11 @@ class FilesViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
 
   private var context: Context
+
+  private var externalPermissionStatus: PermissionStatus = CAN_ASK_PERMISSION
+
+  private val _requestStorageEvent = MutableLiveData<Event<Unit>>()
+  val requestStoragePermissionEvent: LiveData<Event<Unit>> = _requestStorageEvent
 
   private val _items = MutableLiveData<List<VideoFile>>().apply { value = emptyList() }
   val items: LiveData<List<VideoFile>> = _items
@@ -50,6 +57,13 @@ class FilesViewModel @Inject constructor(
     _items.postValue(repository.allFiles())
   }
 
+  fun setExternalStorageStatus(newPermissionStatus: PermissionStatus) {
+    Timber.d(newPermissionStatus.toString())
+    if (externalPermissionStatus !== newPermissionStatus) {
+      externalPermissionStatus = newPermissionStatus
+    }
+  }
+
   /**
    * Called by Data Binding.
    */
@@ -61,12 +75,15 @@ class FilesViewModel @Inject constructor(
    * called by ui
    */
   fun addNewFile() = viewModelScope.launch {
-    val file = generateRandomFile()
-    repository.insert(file)
+    if (externalPermissionStatus == CAN_ASK_PERMISSION) {
+      _requestStorageEvent.value = Event(Unit)
+    } else {
+      val file = generateRandomFile()
+      repository.insert(file)
+      loadFiles()
 
-    startDownloader(file)
-
-    loadFiles()
+      startDownloader(file)
+    }
   }
 
   private fun startDownloader(videoFile: VideoFile) {
@@ -82,8 +99,9 @@ class FilesViewModel @Inject constructor(
       .build()
 
     val builder = Data.Builder()
-    builder.putString(Const.INPUT_NAME, videoFile.videoTitle)
     builder.putString(Const.INPUT_ID, videoFile.videoId)
+    builder.putString(Const.INPUT_NAME, videoFile.videoTitle)
+    builder.putString(Const.INPUT_URL, videoFile.videoUrl)
     builder.build()
 
     return Builder(DownloadWorker::class.java).setInputData(builder.build())
@@ -92,12 +110,13 @@ class FilesViewModel @Inject constructor(
   }
 
   private fun generateRandomFile(): VideoFile {
-
+    val url = Const.videoLinks[Const.getRandomBetweenRange()]
+    val thumb = Const.imageLinks[Const.getRandomBetweenRange()]
     val videoFile = VideoFile(
       videoId = UUID.randomUUID().toString(),
-      videoTitle = "title one",
-      videoUrl = Const.videoLinks[Const.getRandomBetweenRange()],
-      videoThumb = Const.imageLinks[Const.getRandomBetweenRange()]
+      videoTitle = Const.extractName(url),
+      videoUrl = url,
+      videoThumb = thumb
     )
     Timber.d("$videoFile")
     return videoFile
