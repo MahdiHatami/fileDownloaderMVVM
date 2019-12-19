@@ -30,7 +30,7 @@ class FilesAdapter(private val viewModel: FilesViewModel) :
 
     fun bind(viewModel: FilesViewModel, item: VideoFile) {
       binding.viewModel = viewModel
-      binding.file = item
+      binding.video= item
       binding.executePendingBindings()
     }
 

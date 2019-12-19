@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface VideoFileDao {
   @Query("SELECT * from video_files ORDER BY videoId ASC")
-  fun getFiles(): Flow<List<VideoFile>>
+  fun getFiles(): List<VideoFile>
 
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   suspend fun insert(file: VideoFile)

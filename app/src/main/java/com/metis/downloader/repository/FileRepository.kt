@@ -11,7 +11,7 @@ class FileRepository(private val fileDao: VideoFileDao) {
 
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 
-  suspend fun allFiles(): Flow<List<VideoFile>> = withContext(ioDispatcher) {
+  suspend fun allFiles(): List<VideoFile> = withContext(ioDispatcher) {
     val a = fileDao.getFiles()
     a
   }

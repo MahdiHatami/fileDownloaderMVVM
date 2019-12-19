@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.metis.downloader.EventObserver
 import com.metis.downloader.R
@@ -56,6 +57,10 @@ class FilesFragment : Fragment() {
       val action = FilesFragmentDirections.actionFileFragmentToPlayerFragment(it)
       findNavController().navigate(action)
     })
+
+    viewModel.items.observe(viewLifecycleOwner) {videos ->
+      listAdapter.submitList(videos)
+    }
 
   }
 

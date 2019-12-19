@@ -46,7 +46,7 @@ class PlayerFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     val fileId = args.fileId
     viewModel.setCurrentFileId(fileId)
-    findNavController().currentDestination?.label = fileId.toString()
+    findNavController().currentDestination?.label = fileId
   }
 
 }
