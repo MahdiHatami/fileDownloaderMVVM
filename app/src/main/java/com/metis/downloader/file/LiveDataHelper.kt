@@ -12,7 +12,7 @@ internal class LiveDataHelper {
     hashMap[id] = percent
   }
 
-  fun observePercentage(id: String?): LiveData<Int>? {
+  fun observePercentage(id: String): LiveData<Int>? {
     return if (hashMap.containsKey(id)) hashMap[id] else percent
   }
 
