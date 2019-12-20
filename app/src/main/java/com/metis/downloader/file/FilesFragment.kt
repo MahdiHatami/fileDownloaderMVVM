@@ -60,6 +60,13 @@ class FilesFragment : DaggerFragment() {
 
     setupListAdapter()
 
+    viewModel.setExternalStorageStatus(
+      (PermissionManager().getPermissionStatus(
+        requireActivity(),
+        Manifest.permission.READ_EXTERNAL_STORAGE
+      ))
+    )
+
     viewModel.openFileEvent.observe(viewLifecycleOwner, EventObserver {
       val action = FilesFragmentDirections.actionFileFragmentToPlayerFragment(it)
       findNavController().navigate(action)
