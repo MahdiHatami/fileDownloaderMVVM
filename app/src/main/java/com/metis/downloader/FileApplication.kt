@@ -1,6 +1,5 @@
 package com.metis.downloader
 
-import com.metis.downloader.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 
 class FileApplication : BaseApplication() {
